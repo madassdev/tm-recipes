@@ -1,5 +1,5 @@
 <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
-    <i class="cil-menu"></i>
+    <i class="mdi mdi-menu"></i>
 </button>
 <a class="c-header-brand d-lg-none c-header-brand-sm-up-center" href="#">
     <i class="full"></i>
