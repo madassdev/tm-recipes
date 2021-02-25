@@ -16,8 +16,12 @@
             <div
                 class="card-header bg-gray-100 flex items-center justify-between"
             >
-                <p class="font-bold h1">Create recipe</p>
-                
+                <p class="font-bold h1">Edit recipe</p>
+                <div class="save">
+                    <a href="{{ URL::previous() }}" class="btn btn-danger btn-sm">
+                        <i class="mdi mdi-arrow-left-circle"></i>
+                        Go back</a>
+                </div>
             </div>
             <div class="card-body">
                 <form action="{{route('admin.recipes.update', $recipe->slug)}}" method="post">

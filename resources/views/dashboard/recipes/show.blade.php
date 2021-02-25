@@ -11,11 +11,11 @@
         </p>
         <div class="save">
             <a
-                href="{{ route('admin.recipes.index') }}"
+                href="{{ route('admin.recipes.edit', $recipe->slug) }}"
                 class="btn btn-primary btn-sm"
             >
-                <i class="mdi mdi-food"></i>
-                Recipes</a
+                <i class="mdi mdi-playlist-edit"></i>
+                Edit</a
             >
         </div>
     </div>
