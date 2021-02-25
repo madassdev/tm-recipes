@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('login'));
 });
 
 Route::get('/dashboard', function () {
@@ -36,6 +36,5 @@ Route::name('admin.')->prefix('dashboard')->middleware(['auth', 'role:admin'])->
     Route::get('settings', 'CategoryController@destroy')->name('settings.index');
 });
 Route::get('/logout', 'Auth\AuthenticatedSessionController@destroy')->name('logout');
-
 
 require __DIR__.'/auth.php';

@@ -2,7 +2,7 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <!-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> -->
             </a>
         </x-slot>
 
@@ -14,6 +14,10 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
+            <div class="head my-3">
+
+                <h3 class="text-center">Login to Admin Dashboard</h3>
+            </div>
 
             <!-- Email Address -->
             <div>
