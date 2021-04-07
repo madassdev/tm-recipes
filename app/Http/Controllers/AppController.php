@@ -30,14 +30,14 @@ class AppController extends Controller
 
         // $meals = Meal::whereCategory($category)->get()->random(12);
         $meals = Meal::whereCategory('breakfast')->get()->random(12);
-
+        
         return view('front.category', compact('category', 'meals'));
     }
-
-
+    
+    
     public function saveMealResults($category, $meal, $results)
     {
-        // $category_foods = $this->saveMealResults($category, 'tea', $this->complexSearch('tea'));
+        $category_foods = $this->saveMealResults($category, 'tea', $this->complexSearch('tea'));
 
         collect($results)->each(function($r) use ($meal, $category){
 
@@ -56,8 +56,27 @@ class AppController extends Controller
     {
         $res = Http::withHeaders([
             "Content-type" => "application/json"
-        ])->get("https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&query=" . $term)->json();
+        ])->get("https://api.spoonacular.com/recipes/complexSearch?apiKey=7fc8f9652d9d4a42a3d8d79d11601903&query=" . $term)->json();
+        dd($res);
         return $res['results'];
         // return "https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&query=".$term;
+        // return "https://api.spoonacular.com/recipes/complexSearch?apiKey=7fc8f9652d9d4a42a3d8d79d11601903&query=".$term;
+    }
+
+    public function popPeriod($category)
+    {
+        $periods = collect(config('food.periods'));
+        // return $periods->where('name',$category);
+        if (!$periods->where('name', $category)->count()) {
+            abort(404);
+        }
+        // return $this->complexSearch('egg');
+        $category_foods = collect(config('food.' . $category))->map(function ($t) use($category) {
+            $results = $this->complexSearch($t);
+            $this->saveMealResults($category, $t, $results);
+            return ['name'=>$t, 'data'=>$results];
+        });
+        
+        return $category_foods;
     }
 }
