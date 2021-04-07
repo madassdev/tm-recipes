@@ -39,9 +39,10 @@ class AppController extends Controller
     public function seed()
     {
         return Meal::take(2)->get()->map(function($m){
-            return Http::withHeaders([
+            $res = Http::withHeaders([
                 "Content-type" => "application/json"
-            ])->post('https://tmrecipes.herokuapp.com/pop/breakfast', $m->toArray())->getBody();
+            ])->post('https://recipe.dv/pop/breakfast', ["data"=>$m->toArray()])->body();
+            dd($res);
         });
     }
     
@@ -82,7 +83,7 @@ class AppController extends Controller
             "sp_id" => $r["id"],
             "title" => $r["title"],
             "image" => $r["image"],
-            "image_type" => $r["imageType"],
+            "image_type" => $r["image_type"],
         ]);
         
         return Meal::latest()->first();
