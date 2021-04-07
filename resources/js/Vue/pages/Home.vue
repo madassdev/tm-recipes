@@ -64,7 +64,7 @@
                 <input type="text" class="rounded-full w-full">
             </div> -->
     <div class="w-2/3 mx-auto flex flex-col items-center justify-center">
-      <p class="border-b-4 border-red-600 py-2 font-bold text-4xl my-6">
+      <p class="py-2 font-bold text-white text-4xl my-6">
         Select a category
       </p>
       <div
@@ -99,7 +99,7 @@ export default {
     console.log(food)
 
     // this.$modal.show("foodModal");
-    MicroModal.show("food-modal");
+    // MicroModal.show("food-modal");
   },
   methods: {
     setModal(period) {

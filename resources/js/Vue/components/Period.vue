@@ -1,7 +1,7 @@
 <template>
-  <span
+  <a :href="'/category/'+period.name"
     @click="periodClicked"
-    class="cursor-pointer hover:bg-gray-50 hover:text-red-600 rounded bg-red-700 flex flex-col items-center justify-center h-24 w-32"
+    class="cursor-pointer text-white hover:bg-gray-50 hover:text-red-600 rounded bg-red-700 flex flex-col items-center justify-center h-24 w-32"
   >
     <i
       :class="`text-2xl hover:text-red-600 hover:text-4xl mdi mdi-${period.icon}`"
@@ -10,7 +10,7 @@
       <!-- {{ $f }} -->
       {{ period.name }}
     </p>
-  </span>
+  </a>
 </template>
 
 <script>

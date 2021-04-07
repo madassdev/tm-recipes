@@ -13,7 +13,7 @@
     <title>Showing {{$category}}</title>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-black">
     <div id="category">
         <div class="h-32 flex items-center justify-center w-full bg-black">
             <p class="font-bold text-4xl uppercase text-red-500">
@@ -22,7 +22,7 @@
         </div>
         <div class="main-content my-8 h-screen">
             <div class="meals-container flex flex-col space-y-8 w-5/6 mx-auto hiddens">
-                <div class="eggs grid grid-cols-4 gap-8">
+                <div class="eggs grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
                     @foreach($meals as $meal)
                     <div class="meal-card rounded-lg hover:shadow-2xl cursor-pointer shadow-lg bg-white" data-sp-id="{{$meal->sp_id}}" data-meal-json='@json($meal)'>
                         <div class="image relative">
@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="meal-container w-full md:w-5/6 mx-auto flex flex-col h-5/6">
+            <div class="meal-container bg-white w-full md:w-5/6 mx-auto flex flex-col h-5/6">
                 <div class="meal-header flex items-center justify-between p-3 border border-gray-300 rounded-t-lg">
                     <p class="meal-title text-2xl font-bold uppercase">
                         Meal title

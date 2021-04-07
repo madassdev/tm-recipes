@@ -1,11 +1,6 @@
-import Vue from 'vue';
-
+import { createApp } from 'vue';
 //Main pages
 import Home from "./Vue/pages/Home.vue";
 
-const app = new Vue({
-    el: "#home",
-    // store,
-    components: { Home },
-    render: h => h(Home),
-});
+createApp(Home).mount("#home")
+

@@ -28,7 +28,8 @@ class AppController extends Controller
     {
         $category = strtolower($category);
 
-        $meals = Meal::whereCategory($category)->get()->random(12);
+        // $meals = Meal::whereCategory($category)->get()->random(12);
+        $meals = Meal::whereCategory('breakfast')->get()->random(12);
 
         return view('front.category', compact('category', 'meals'));
     }
