@@ -26,10 +26,18 @@ class AppController extends Controller
 
     public function categories($category)
     {
+
         $category = strtolower($category);
+        return Meal::take(10)->get()->map(function($m){
+            return Http::withHeaders([
+                "Content-type" => "application/json"
+            ])->post('https://tmrecipes.herokuapp.com/pop/breakfast', $m->toArray())->json();
+        });
 
         // $meals = Meal::whereCategory($category)->get()->random(12);
         $meals = Meal::whereCategory('breakfast')->get()->random(12);
+
+        return $meals->first()->toArray()['term'];
         
         return view('front.category', compact('category', 'meals'));
     }
@@ -56,26 +64,25 @@ class AppController extends Controller
     {
         $res = Http::withHeaders([
             "Content-type" => "application/json"
-        ])->get("https://api.spoonacular.com/recipes/complexSearch?apiKey=7fc8f9652d9d4a42a3d8d79d11601903&query=" . $term)->json();
+        ])->get("https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&query=" . $term)->json();
+        // dd($res);
         return $res['results'];
         // return "https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&query=".$term;
         // return "https://api.spoonacular.com/recipes/complexSearch?apiKey=7fc8f9652d9d4a42a3d8d79d11601903&query=".$term;
     }
 
-    public function popPeriod($category)
+    public function popPeriod(Request $request, $category)
     {
-        $periods = collect(config('food.periods'));
-        // return $periods->where('name',$category);
-        if (!$periods->where('name', $category)->count()) {
-            abort(404);
-        }
-        // return $this->complexSearch('egg');
-        $category_foods = collect(config('food.' . $category))->map(function ($t) use($category) {
-            $results = $this->complexSearch($t);
-            $this->saveMealResults($category, $t, $results);
-            return ['name'=>$t, 'data'=>$results];
-        });
+        $r = $request->data;
+        Meal::updateOrCreate(["sp_id"=>$r["id"]],[
+            "category" => $r['category'],
+            "term" => $r['term'],
+            "sp_id" => $r["id"],
+            "title" => $r["title"],
+            "image" => $r["image"],
+            "image_type" => $r["imageType"],
+        ]);
         
-        return $category_foods;
+        return Meal::latest()->first();
     }
 }

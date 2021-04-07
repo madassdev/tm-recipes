@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'AppController@frontIndex')->name('front.index');
-Route::get('/pop/{category}', 'AppController@popPeriod')->name('front.index');
+Route::post('/pop/{category}', 'AppController@popPeriod')->name('front.index');
 Route::get('/category/{category}', "AppController@categories"
 )->name('front.categories.show');
 
