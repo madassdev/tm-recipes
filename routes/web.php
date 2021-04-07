@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect(route('login'));
-});
+Route::get('/', 'AppController@frontIndex')->name('front.index');
+Route::get('/category/{category}', "AppController@categories"
+)->name('front.categories.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard.index');

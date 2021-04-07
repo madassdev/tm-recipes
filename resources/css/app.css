@@ -2,10 +2,11 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import '@coreui/coreui';
+/* @import '@coreui/coreui'; */
 
-.recipe-content p{
+p{
     font-size: 12px;
     margin-bottom: 0;
     padding:0;
+    margin:o;
 }

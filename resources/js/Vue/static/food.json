@@ -1,0 +1,79 @@
+{
+    "periods": [
+        {
+            "name": "Breakfast",
+            "icon": "food"
+        },
+        {
+            "name": "Lunch",
+            "icon": "food-fork-drink"
+        },
+        {
+            "name": "Dinner",
+            "icon": "food-turkey"
+        },
+        {
+            "name": "Snacks",
+            "icon": "hamburger"
+        }
+    ],
+    "breakfast_list": [
+        "eggs",
+        "coffee",
+        "greek yoghurt",
+        "oatmeal",
+        "green tea",
+        "cottage cheese",
+        "waffles",
+        "spinach",
+        "sweet potatoes",
+        "skim cheese",
+        "flaxseed",
+        "ricotta"
+    ],
+    "breakfast": [
+        {
+            "id": 635408,
+            "title": "Blueberry and Cottage Cheese Strudel",
+            "image": "https://spoonacular.com/recipeImages/635408-312x231.jpg",
+            "imageType": "jpg"
+        },
+        {
+            "id": 1512847,
+            "title": "Avocado Egg Salad",
+            "image": "https://spoonacular.com/recipeImages/1512847-312x231.jpg",
+            "imageType": "jpg"
+        },
+        {
+            "id": 1096302,
+            "title": "Coffee Chia Pudding",
+            "image": "https://spoonacular.com/recipeImages/1096302-312x231.jpg",
+            "imageType": "jpg"
+        },
+
+        {
+            "id": 653447,
+            "title": "Oatmeal Coconut Cake",
+            "image": "https://spoonacular.com/recipeImages/653447-312x231.jpg",
+            "imageType": "jpg"
+        },
+        {
+            "id": 653442,
+            "title": "Oatmeal Brownie Bars",
+            "image": "https://spoonacular.com/recipeImages/653442-312x231.jpg",
+            "imageType": "jpg"
+        },
+        {
+            "id": 662582,
+            "title": "Sweet Potato Green Tea Pancake Roll",
+            "image": "https://spoonacular.com/recipeImages/662582-312x231.jpg",
+            "imageType": "jpg"
+        },
+        {
+            "id": 661834,
+            "title": "Strawberry Mango Green Tea Limeade",
+            "image": "https://spoonacular.com/recipeImages/661834-312x231.jpg",
+            "imageType": "jpg"
+        }
+    ]
+}
