@@ -28,20 +28,22 @@ class AppController extends Controller
     {
 
         $category = strtolower($category);
-        return Meal::take(10)->get()->map(function($m){
-            return Http::withHeaders([
-                "Content-type" => "application/json"
-            ])->post('https://tmrecipes.herokuapp.com/pop/breakfast', $m->toArray())->json();
-        });
-
-        // $meals = Meal::whereCategory($category)->get()->random(12);
+        // return $this->seed();
         $meals = Meal::whereCategory('breakfast')->get()->random(12);
 
-        return $meals->first()->toArray()['term'];
+        // return $meals->first()->toArray()['term'];
         
         return view('front.category', compact('category', 'meals'));
     }
     
+    public function seed()
+    {
+        return Meal::take(2)->get()->map(function($m){
+            return Http::withHeaders([
+                "Content-type" => "application/json"
+            ])->post('https://tmrecipes.herokuapp.com/pop/breakfast', $m->toArray())->getBody();
+        });
+    }
     
     public function saveMealResults($category, $meal, $results)
     {
