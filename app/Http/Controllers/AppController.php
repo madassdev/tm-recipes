@@ -57,7 +57,6 @@ class AppController extends Controller
         $res = Http::withHeaders([
             "Content-type" => "application/json"
         ])->get("https://api.spoonacular.com/recipes/complexSearch?apiKey=7fc8f9652d9d4a42a3d8d79d11601903&query=" . $term)->json();
-        dd($res);
         return $res['results'];
         // return "https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&query=".$term;
         // return "https://api.spoonacular.com/recipes/complexSearch?apiKey=7fc8f9652d9d4a42a3d8d79d11601903&query=".$term;
