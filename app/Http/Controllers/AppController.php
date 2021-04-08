@@ -38,11 +38,11 @@ class AppController extends Controller
     
     public function seed()
     {
-        return Meal::take(2)->get()->map(function($m){
+        return Meal::all()->skip(20)->map(function($m){
             $res = Http::withHeaders([
                 "Content-type" => "application/json"
-            ])->post('https://recipe.dv/pop/breakfast', ["data"=>$m->toArray()])->body();
-            dd($res);
+            ])->post('https://tmrecipes.herokuapp.com/pop/breakfast', ["data"=>$m->toArray()])->body();
+            return $res;
         });
     }
     

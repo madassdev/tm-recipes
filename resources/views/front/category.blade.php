@@ -47,12 +47,12 @@
                 </div>
             </div>
 
-            <div class="meal-container bg-white w-full md:w-5/6 mx-auto flex flex-col h-5/6">
+            <div class="meal-container hidden bg-white w-full md:w-5/6 mx-auto flex flex-col h-5/6">
                 <div class="meal-header flex items-center justify-between p-3 border border-gray-300 rounded-t-lg">
                     <p class="meal-title text-2xl font-bold uppercase">
                         Meal title
                     </p>
-                    <button class="tester">Test</button>
+                    <!-- <button class="tester">Test</button> -->
                     <span class="close-meal text-4xl font-bold text-red-600 cursor-pointer">
                         <i class="mdi mdi-close"></i>
                     </span>
