@@ -2,7 +2,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* @import '@coreui/coreui'; */
+@import '@coreui/coreui';
 
 p{
     font-size: 12px;

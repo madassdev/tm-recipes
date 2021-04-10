@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meal;
+use App\Models\MealRecipe;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
@@ -12,11 +13,24 @@ class AppController extends Controller
 {
     public function index()
     {
-        return view('dashboard.vue');
+        return view('dashboard.index');
+    }
+    
+    public function meals()
+    {
+        return view('dashboard.meals');
     }
 
     public function frontIndex()
     {
+
+        return Meal::whereNull('recipe')->take(20)->get()
+        ->each(function($m){
+            $m->saveRecipe();
+        })
+        ;
+
+        // return 
 
         return view('front.vue');
         return view('dashboard.vue');
@@ -32,27 +46,27 @@ class AppController extends Controller
         $meals = Meal::whereCategory('breakfast')->get()->random(12);
 
         // return $meals->first()->toArray()['term'];
-        
+
         return view('front.category', compact('category', 'meals'));
     }
-    
+
     public function seed()
     {
-        return Meal::all()->skip(20)->map(function($m){
+        return Meal::all()->skip(20)->map(function ($m) {
             $res = Http::withHeaders([
                 "Content-type" => "application/json"
-            ])->post('https://tmrecipes.herokuapp.com/pop/breakfast', ["data"=>$m->toArray()])->body();
+            ])->post('https://tmrecipes.herokuapp.com/pop/breakfast', ["data" => $m->toArray()])->body();
             return $res;
         });
     }
-    
+
     public function saveMealResults($category, $meal, $results)
     {
         $category_foods = $this->saveMealResults($category, 'tea', $this->complexSearch('tea'));
 
-        collect($results)->each(function($r) use ($meal, $category){
+        collect($results)->each(function ($r) use ($meal, $category) {
 
-            Meal::updateOrCreate(["sp_id"=>$r["id"]],[
+            Meal::updateOrCreate(["sp_id" => $r["id"]], [
                 "category" => $category,
                 "term" => $meal,
                 "sp_id" => $r["id"],
@@ -77,7 +91,7 @@ class AppController extends Controller
     public function popPeriod(Request $request, $category)
     {
         $r = $request->data;
-        Meal::updateOrCreate(["sp_id"=>$r["id"]],[
+        Meal::updateOrCreate(["sp_id" => $r["id"]], [
             "category" => $r['category'],
             "term" => $r['term'],
             "sp_id" => $r["id"],
@@ -85,7 +99,7 @@ class AppController extends Controller
             "image" => $r["image"],
             "image_type" => $r["image_type"],
         ]);
-        
+
         return Meal::latest()->first();
     }
 }

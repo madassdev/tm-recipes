@@ -15,7 +15,7 @@ return [
             "icon" => "food-turkey"
         ],
         [
-            "name" => "snacks",
+            "name" => "side dishes",
             "icon" => "hamburger"
         ]
     ],
