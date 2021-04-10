@@ -14,16 +14,35 @@
 </head>
 
 <body class="bg-black">
+    <div class="mini-nav flex space-x-2 justify-center">
+        @foreach(config('food.periods') as $period)
+        @if(strtolower($period['name']) == strtolower($category))
+        <a href="/category/{{$period['name']}}" class="cursor-pointer bg-gray-50 text-red-600 rounded flex flex-col items-center justify-center h-24 w-32">
+            <i class="text-2xl hover:text-4xl mdi mdi-{{$period['icon']}}"></i>
+            <p class="text-xs tracking-widest my-2 p-0 uppercase">
+                {{ $period['name'] }}
+            </p>
+        </a>
+        @else
+        <a href="/category/{{$period['name']}}" class="cursor-pointer text-white hover:bg-gray-50 hover:text-red-600 rounded bg-red-700 flex flex-col items-center justify-center h-24 w-32">
+            <i class="text-2xl hover:text-4xl mdi mdi-{{$period['icon']}}"></i>
+            <p class="text-xs tracking-widest my-2 p-0 uppercase">
+                {{ $period['name'] }}
+            </p>
+        </a>
+        @endif
+        @endforeach
+    </div>
     <div id="category">
         <div class="h-32 flex items-center justify-center w-full bg-black">
             <p class="font-bold text-4xl uppercase text-red-500">
                 {{$category}}
             </p>
         </div>
-        <div class="main-content my-8 h-screen">
+        <div class="main-content my-8">
             <div class="meals-container flex flex-col space-y-8 w-5/6 mx-auto hiddens">
                 <div class="eggs grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-                    @foreach($meals as $meal)
+                    @foreach(collect($meals->items())->shuffle()->all() as $meal)
                     <div class="meal-card rounded-lg hover:shadow-2xl cursor-pointer shadow-lg bg-white" data-sp-id="{{$meal->sp_id}}" data-meal-json='@json($meal)'>
                         <div class="image relative">
                             <img src="{{$meal->image}}" class="w-full rounded-t-lg" alt="">
@@ -45,6 +64,8 @@
                     </div>
                     @endforeach
                 </div>
+
+                {{$meals->links()}}
             </div>
 
             <div class="meal-container hidden bg-white w-full md:w-5/6 mx-auto flex flex-col h-5/6">
@@ -135,24 +156,21 @@
             </div>
         </div>
     </div>
+    <div class="modal micromodal-slide" id="recipe-show-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container p-3 w-full mx-2" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                <header class="modal__header text-cha-primary">
+                    <h2 class="modal__title" id="modal-1-title"></h2>
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content p-3" id="modal-1-content">
+                    <div class="spinner-container flex flex-col space-y-1 items-center justify-center">
 
-    <div class="modal">
-
-        <div class="modal micromodal-slide" id="recipe-show-modal" aria-hidden="true">
-            <div class="modal__overlay" tabindex="-1" data-micromodal-close>
-                <div class="modal__container p-3 w-full mx-2" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-                    <header class="modal__header text-cha-primary">
-                        <h2 class="modal__title" id="modal-1-title"></h2>
-                        <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
-                    </header>
-                    <main class="modal__content p-3" id="modal-1-content">
-                        <div class="spinner-container flex flex-col space-y-1 items-center justify-center">
-
-                        </div>
-                    </main>
-                </div>
+                    </div>
+                </main>
             </div>
         </div>
+    </div>
     </div>
     <script src="{{asset('js/datastore.js')}}"></script>
     <script>
@@ -246,7 +264,7 @@
             var meal_instructions_step = $('.meal-instructions-step').clone()[0]
             // meal_instructions.find('.meal-instructions')
             // .html(nl2br(instructions))
-            instructions.forEach((i)=>{
+            instructions.forEach((i) => {
                 meal_instructions.append($('.meal-instructions-step').clone().removeClass('meal-instructions-step').removeClass('hidden').text(i.step));
             })
             meal_instructions.removeClass('hidden');
@@ -273,10 +291,9 @@
             $.get(`${spn_url}/recipes/${meal.sp_id}/information${spn_key}`).done((data) => {
                 c(data)
                 displayRecipeDetails(data)
-            }).fail(()=>{
+            }).fail(() => {
                 displayRecipeDetails(meal_data)
-            }
-            )
+            })
             meal_container.removeClass('hidden')
         }
 
@@ -296,10 +313,10 @@
                 dish_content.append(new_dish)
             })
             makeMealSummary(data.summary)
-                // makeInstructions(data.instructions)
-            if(data.analyzedInstructions.length>0){
+            // makeInstructions(data.instructions)
+            if (data.analyzedInstructions.length > 0) {
                 makeAnalyzedInstructions(data.analyzedInstructions[0].steps)
-            }else{
+            } else {
                 makeInstructions(data.instructions)
             }
 

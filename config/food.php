@@ -19,7 +19,7 @@ return [
             "icon" => "hamburger"
         ]
     ],
-    "breakfast"=>[
+    "breakfast" => [
         "tea",
         "eggs",
         "coffee",
@@ -31,5 +31,9 @@ return [
         "ricotta",
         "flaxseed",
     ],
-    
+    "keys" => [
+        "85fc9da86b1d444aaeb3598f8200566e",
+        "7fc8f9652d9d4a42a3d8d79d11601903"
+    ]
+
 ];

@@ -24,11 +24,11 @@ class AppController extends Controller
     public function frontIndex()
     {
 
-        return Meal::whereNull('recipe')->take(20)->get()
-        ->each(function($m){
-            $m->saveRecipe();
-        })
-        ;
+        // return Meal::whereNull('recipe')->take(20)->get()
+        // ->each(function($m){
+        //     $m->saveRecipe();
+        // })
+        // ;
 
         // return 
 
@@ -43,8 +43,9 @@ class AppController extends Controller
 
         $category = strtolower($category);
         // return $this->seed();
-        $meals = Meal::whereCategory('breakfast')->get()->random(12);
+        $meals = Meal::whereCategory($category)->paginate(20);
 
+        // return $meals;
         // return $meals->first()->toArray()['term'];
 
         return view('front.category', compact('category', 'meals'));
@@ -62,7 +63,7 @@ class AppController extends Controller
 
     public function saveMealResults($category, $meal, $results)
     {
-        $category_foods = $this->saveMealResults($category, 'tea', $this->complexSearch('tea'));
+        // $category_foods = $this->saveMealResults($category, 'tea', $this->complexSearch('tea'));
 
         collect($results)->each(function ($r) use ($meal, $category) {
 
@@ -73,6 +74,7 @@ class AppController extends Controller
                 "title" => $r["title"],
                 "image" => $r["image"],
                 "image_type" => $r["imageType"],
+                "recipe" => $r
             ]);
         });
     }
@@ -81,25 +83,25 @@ class AppController extends Controller
     {
         $res = Http::withHeaders([
             "Content-type" => "application/json"
-        ])->get("https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&query=" . $term)->json();
+        ])->get("https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&addRecipeInformation=true&query=" . $term)->json();
         // dd($res);
         return $res['results'];
         // return "https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&query=".$term;
         // return "https://api.spoonacular.com/recipes/complexSearch?apiKey=7fc8f9652d9d4a42a3d8d79d11601903&query=".$term;
     }
 
-    public function popPeriod(Request $request, $category)
-    {
-        $r = $request->data;
-        Meal::updateOrCreate(["sp_id" => $r["id"]], [
-            "category" => $r['category'],
-            "term" => $r['term'],
-            "sp_id" => $r["id"],
-            "title" => $r["title"],
-            "image" => $r["image"],
-            "image_type" => $r["image_type"],
-        ]);
+    // public function popPeriod(Request $request, $category)
+    // {
+    //     $r = $request->data;
+    //     Meal::updateOrCreate(["sp_id" => $r["id"]], [
+    //         "category" => $r['category'],
+    //         "term" => $r['term'],
+    //         "sp_id" => $r["id"],
+    //         "title" => $r["title"],
+    //         "image" => $r["image"],
+    //         "image_type" => $r["image_type"],
+    //     ]);
 
-        return Meal::latest()->first();
-    }
+    //     return Meal::latest()->first();
+    // }
 }

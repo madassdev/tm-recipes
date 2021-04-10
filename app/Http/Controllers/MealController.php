@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\FetchRecipesJob;
 use App\Models\Meal;
 use Illuminate\Http\Request;
+
+use function GuzzleHttp\Promise\queue;
 
 class MealController extends Controller
 {
     public function index()
     {
-        $meals = Meal::whereNotNull('recipe')->paginate(30);
+        $meals = Meal::latest()->paginate(30);
         // return $meals;
         return view('dashboard.meals.index', compact('meals'));
     }
@@ -36,7 +39,7 @@ class MealController extends Controller
     public function searchMeal(Request $request)
     {
         //Queue the job...
-
+        FetchRecipesJob::dispatch($request->term, $request->category);
 
         return redirect(route('admin.meal.index'))->withSuccess('Searching for "' . ucfirst($request->term) . '"recipes in background, changes will reflect after API request and categorization is complete.');
     }

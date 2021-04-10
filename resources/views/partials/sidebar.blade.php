@@ -14,17 +14,17 @@
             System
         </li>
         <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-label" href="{{route('admin.recipes.index')}}">
+            <a class="c-sidebar-nav-label" href="{{route('admin.meal.index')}}">
                 <i class="mdi mdi-food text-danger c-sidebar-nav-icon"></i>
                 All recipes
             </a>
         </li>
-        <li class="c-sidebar-nav-item">
+        <!-- <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-label" href="{{route('admin.recipes.create')}}">
                 <i class="mdi mdi-noodles text-info c-sidebar-nav-icon"></i>
                 Create recipe
             </a>
-        </li>
+        </li> -->
 
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-label" href="{{route('admin.categories.index')}}">

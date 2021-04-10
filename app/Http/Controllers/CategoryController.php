@@ -40,12 +40,13 @@ class CategoryController extends Controller
         {
             return back()->withError('Default category cannot be deleted!!');
         }
-
+        
         $category->recipes->each(function($recipe){
             $recipe->update(["category_id" => 1]);
         });
         
         $category->delete();
+        return back();
         return back()->withSuccess('Category deleted successfully');
 
     }

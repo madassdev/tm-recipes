@@ -26,20 +26,20 @@
             </div>
             <div class="modal-body">
                 <form action="{{ route('admin.meal.search') }}" method="post">
-                    <div class="form-group-row">
-                        <div class="form-group">
-                            <label for="">Search term</label>
-                            <div class="row mx-3">
-                                <input
-                                    type="text"
-                                    name="term"
-                                    class="form-control col-md-6"
-                                    placeholder="Enter search term"
-                                    required
-                                />
-                                <button class="btn btn-success mx-3">Go</button>
-                            </div>
-                        </div>
+                    <div class="flex space-x-2">
+                        <input
+                            type="text"
+                            name="term"
+                            class="form-control w-1/3"
+                            placeholder="Enter search term"
+                            required
+                        />
+                        <select name="category" id="" class="form-control"> 
+                            @foreach(config('food.periods') as $cat)
+                            <option value="{{$cat['name']}}">{{ucfirst($cat['name'])}}</option>
+                            @endforeach
+                        </select>
+                        <button class="btn btn-success mx-3">Go</button>
                     </div>
                 </form>
             </div>
