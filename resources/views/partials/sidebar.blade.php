@@ -15,7 +15,7 @@
         </li>
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-label" href="{{route('admin.meal.index')}}">
-                <i class="mdi mdi-food text-danger c-sidebar-nav-icon"></i>
+                <i class="mdi mdi-food text-success c-sidebar-nav-icon"></i>
                 All recipes
             </a>
         </li>
@@ -26,7 +26,7 @@
             </a>
         </li> -->
 
-        <li class="c-sidebar-nav-item">
+        <!-- <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-label" href="{{route('admin.categories.index')}}">
                 <i class="mdi mdi-shape text-warning c-sidebar-nav-icon"></i>
                 Categories
@@ -38,17 +38,17 @@
                 <i class="mdi mdi-head-question text-success c-sidebar-nav-icon"></i>
                 Questions
             </a>
-        </li>
+        </li> -->
         <li class="c-sidebar-nav-title">
             System
         </li>
-        
-        <li class="c-sidebar-nav-item">
+
+        <!-- <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-label" href="{{route('admin.settings.index')}}">
                 <i class="mdi mdi-cogs text-warning c-sidebar-nav-icon"></i>
                 Settings
             </a>
-        </li>
+        </li> -->
 
         <!-- <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-label" href="#"> 
@@ -58,11 +58,19 @@
         </li> -->
 
         <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-label" href="{{route('logout')}}">
+            <a class="c-sidebar-nav-label" href="#" onclick="logout()">
                 <i class="mdi mdi-logout text-danger c-sidebar-nav-icon"></i>
                 Logout
             </a>
         </li>
+        <script>
+            function logout() {
+                const logout = confirm('Are you sure you want to logout');
+                if (logout) {
+                    window.location = "{{route('logout')}}"
+                }
+            }
+        </script>
         <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
             <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
         </div>

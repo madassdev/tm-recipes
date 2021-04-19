@@ -13,16 +13,16 @@
     <li class="c-header-nav-item px-3">
         <a class="c-header-nav-link" href="{{route('admin.categories.index')}}">
             <i class="mdi mdi-gauge mx-1"></i>
-            Dashboard 
-    </a>
+            Dashboard
+        </a>
     </li>
     <li class="c-header-nav-item px-3">
         <a class="c-header-nav-link" href="{{route('admin.meal.index')}}">
             <i class="mdi mdi-food mx-1"></i>
-            Recipes 
-    </a>
+            Recipes
+        </a>
     </li>
-    <li class="c-header-nav-item px-3">
+    <!-- <li class="c-header-nav-item px-3">
         <a class="c-header-nav-link" href="{{route('admin.categories.index')}}">
             <i class="mdi mdi-shape mx-1"></i>
             Categories 
@@ -33,11 +33,11 @@
             <i class="mdi mdi-head-question mx-1"></i>
             Questions 
     </a>
-    </li>
-    <li class="c-header-nav-item px-3">
+    </li> -->
+    <!-- <li class="c-header-nav-item px-3">
         <a class="c-header-nav-link" href="{{route('admin.settings.index')}}">
             <i class="mdi mdi-cogs"></i>
             Settings 
     </a>
-    </li>
+    </li> -->
 </ul>
