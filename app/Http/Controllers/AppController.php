@@ -13,7 +13,7 @@ class AppController extends Controller
 {
     public function index()
     {
-        return redirect(route('dashboard.meal.index'));
+        return redirect(route('admin.meal.index'));
         return view('dashboard.index');
     }
     
