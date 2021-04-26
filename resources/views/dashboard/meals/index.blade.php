@@ -139,13 +139,7 @@
                                 </a>
                                 <hr class="my-0" />
                                 @endforeach
-                                <a
-                                    class="dropdown-item text-xs text-primary"
-                                    href="{{route('admin.meal.edit', ['meal'=>$meal->id])}}"
-                                >
-                                    <i class="mdi mdi-pencil mr-2"></i>
-                                    Edit
-                                </a>
+                                <!--  -->
                                 <!-- <hr class="my-0"> -->
                                 <a
                                     class="dropdown-item text-xs text-danger"

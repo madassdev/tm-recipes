@@ -33,7 +33,7 @@ Route::name('admin.')->prefix('dashboard')->middleware(['auth', 'role:admin'])->
     Route::post('/categories/upload-ck', 'RecipeController@uploadCk')->name('recipes.upload-ck');
     Route::get('/meals', "MealController@index")->name('meal.index');
     Route::get('/meals/{meal}/updateCategory/{category}', "MealController@updateCategory")->name('meal.updateCategory');
-    Route::get('/meals/{meal}/edit', "MealController@edit")->name('meal.edit');
+    // Route::get('/meals/{meal}/edit', "MealController@edit")->name('meal.edit');
     Route::get('/meals/{meal}/delete', "MealController@delete")->name('meal.delete');
     Route::post('/meals/search', "MealController@searchMeal")->name('meal.search');
     Route::post('/meals/find', "MealController@findMeal")->name('meal.find');

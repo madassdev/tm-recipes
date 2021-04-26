@@ -1,0 +1,56 @@
+After the admin sets a search term from the interface,  we do the following.
+GET category from admin's request,
+
+Set up HTTP client,
+Add API key to HTTP request header
+Send the request to the Spoonacular's API endpoint, this will return a json data that contains array of the recipe results
+
+ *Code*
+// Ready to communicate with the API
+        $res = Http::withHeaders([
+            "Content-type" => "application/json"
+        ])
+        // Get the recipe information
+        ->get("https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&addRecipeInformation=true&query=" . $term)
+        // Format the data to JSON
+->json();
+ // Return the JSON data for further processing.
+return $res['results'];
+
+
+
+
+Receive the response data from the request perform a map function on the array
+Retreive the needed recipe  keys from the items in the array, and create a new structure that matches our application
+Use the new structure to create a new recipe and save to database.
+To avoid same recipe being saved multiple times, we use our model's updateOrCreate method which takes in the id of the recipe...
+This way, the method checks first if that recipe exists, and then updates it with the new data, but if the recipe does not exist, 
+a new recipe is created to and saved to the database.
+
+
+*Code*
+// Laravel collection method allows us to efficiently loop through the data, 
+        // We then pass a closure of the arguments we need to save the recipe.
+        // This is necessary because some of the properties we want our recipes to have do not come from the API.
+        collect($results)->each(function ($r) use ($meal, $category) {
+            // Cleanup the data and create a new recipe appropriately, if the recipe id already exists, then update instead
+            Meal::updateOrCreate(["sp_id" => $r["id"]], [
+                "category" => $category,
+                "term" => $meal,
+                "sp_id" => $r["id"],
+                "title" => $r["title"],
+                "image" => $r["image"],
+                "image_type" => $r["imageType"],
+                "recipe" => $r
+                // "recipe" => $recipe
+            ]);
+        });
+
+The whole process takes a while to complete so we use a queue provided by the laravel framework.
+The job queue alows us to perform tasks that take time without having to delay the request's response. 
+That way, anytime the admin tries to add a new recipe by api, the request will not timeout.
+
+
+
+*Code*
+ FetchRecipesJob::dispatch($request->term, $request->category);

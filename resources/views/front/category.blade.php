@@ -285,9 +285,7 @@
             meals_container.addClass('hidden')
             meal_container.find('.meal-title').text(meal.title)
             meal_container.find('.spinner-container').removeClass('hidden').html(spinner('Loading recipe...', 'text-red-600'))
-            // setTimeout(() => {
-            //     displayRecipeDetails(meal_data)
-            // }, 500)
+            
             $.get(`${spn_url}/recipes/${meal.sp_id}/information${spn_key}`).done((data) => {
                 c(data)
                 displayRecipeDetails(data)

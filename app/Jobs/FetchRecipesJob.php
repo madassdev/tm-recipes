@@ -36,28 +36,38 @@ class FetchRecipesJob implements ShouldQueue
      */
     public function handle()
     {
+        // Find the recipe
         $recipes = $this->complexSearch($this->term);
-        // dd($recipes);
+
+        // Optimise CPU memory limit for his process
         ini_set('memory_limit', '1024M');
+
+        // Sace the found recipes
         $this->saveMealResults($this->category, $this->term, $recipes);
     }
 
     public function complexSearch($term)
     {
+        // Ready to communicate with the API
         $res = Http::withHeaders([
             "Content-type" => "application/json"
-        ])->get("https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&addRecipeInformation=true&query=" . $term)->json();
-        // dd($res);
+        ])
+        // Get the recipe information
+        ->get("https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&addRecipeInformation=true&query=" . $term)
+        // Format the data to JSON
+        ->json();
+
+        // Return the JSON data for further processing.
         return $res['results'];
-        // return "https://api.spoonacular.com/recipes/complexSearch?apiKey=85fc9da86b1d444aaeb3598f8200566e&query=".$term;
-        // return "https://api.spoonacular.com/recipes/complexSearch?apiKey=7fc8f9652d9d4a42a3d8d79d11601903&query=".$term;
     }
 
     public function saveMealResults($category, $meal, $results)
     {
-
+        // Laravel collection method allows us to efficiently loop through the data, 
+        // We then pass a closure of the arguments we need to save the recipe.
+        // This is necessary because some of the properties we want our recipes to have do not come from the API.
         collect($results)->each(function ($r) use ($meal, $category) {
-
+            // Cleanup the data and create a new recipe appropriately, if the recipe id already exists, then update instead
             Meal::updateOrCreate(["sp_id" => $r["id"]], [
                 "category" => $category,
                 "term" => $meal,
